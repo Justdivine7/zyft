@@ -78,14 +78,17 @@ class SelectPaymentMethodSheet extends ConsumerWidget {
               ),
               SizedBox(width: size.width * 0.15),
               Expanded(
-                child: AppButton(
-                  label: 'Continue',
-                  color: Theme.of(context).indicatorColor,
-                  onTap: onNext,
-                  textColor: Colors.white,
-                  border: Border.all(
+                child: GestureDetector(
+                  onTap: () => FocusScope.of(context).unfocus(),
+                  child: AppButton(
+                    label: 'Continue',
                     color: Theme.of(context).indicatorColor,
-                    width: 2,
+                    onTap: onNext,
+                    textColor: Colors.white,
+                    border: Border.all(
+                      color: Theme.of(context).indicatorColor,
+                      width: 2,
+                    ),
                   ),
                 ),
               ),

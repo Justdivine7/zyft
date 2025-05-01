@@ -7,13 +7,10 @@ import 'package:zyft/view_models/location_view_model.dart';
 class TripDetailsSheet extends ConsumerWidget {
   final VoidCallback onNext;
 
-
-
   const TripDetailsSheet({super.key, required this.onNext});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
     final locationState = ref.watch(locationProvider);
 
     return Padding(
@@ -50,11 +47,14 @@ class TripDetailsSheet extends ConsumerWidget {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: AppButton(
-              textColor: Colors.white,
-              label: 'Create a trip',
-              color: Theme.of(context).indicatorColor,
-              onTap: onNext,
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: AppButton(
+                textColor: Colors.white,
+                label: 'Create a trip',
+                color: Theme.of(context).indicatorColor,
+                onTap: onNext,
+              ),
             ),
           ),
         ],

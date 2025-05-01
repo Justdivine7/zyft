@@ -10,6 +10,8 @@ import 'package:zyft/views/bottom_sheets/trip_details_sheet.dart';
 import 'package:zyft/views/main_screens/home_screen.dart';
 
 Future<void> showTripDetailsSheet(BuildContext context) async {
+  FocusScope.of(context).unfocus(); // Dismiss keyboard
+
   await showModalBottomSheet(
     isScrollControlled: true,
     isDismissible: false,
@@ -64,6 +66,8 @@ Future<void> showTripDetailsSheet(BuildContext context) async {
 //   );
 // }
 Future<void> showScheduleTimePlanSheet(BuildContext context) async {
+  FocusScope.of(context).unfocus(); // Dismiss keyboard
+
   await showModalBottomSheet(
     context: context,
     isDismissible: false,
@@ -102,6 +106,8 @@ Future<void> showScheduleTimePlanSheet(BuildContext context) async {
 }
 
 Future<void> showSelectPaymentSheet(BuildContext context) async {
+  FocusScope.of(context).unfocus(); // Dismiss keyboard
+
   await showModalBottomSheet(
     barrierColor: Colors.transparent,
     isDismissible: false,
@@ -139,6 +145,8 @@ Future<void> showSelectPaymentSheet(BuildContext context) async {
 }
 
 Future<void> showMakePaymentSheet(BuildContext context) async {
+  FocusScope.of(context).unfocus(); // Dismiss keyboard
+
   await showModalBottomSheet(
     isScrollControlled: true,
     barrierColor: Colors.transparent,
