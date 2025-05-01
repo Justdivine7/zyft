@@ -100,7 +100,7 @@ flutter:
 flutter_native_splash:
   color: "#0175DC"
   image: assets/images/zyft-logo.png
-  fill: false
+  
   android_gravity: center
   ios_content_mode: center
 

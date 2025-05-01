@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
 
-      darkTheme: darkTheme,
-      themeMode: ThemeMode.system,
+      // darkTheme: darkTheme,
+      // themeMode: ThemeMode.system,
       title: 'Zyft ride app',
       home: InputPhoneNumberScreen(),
     );
