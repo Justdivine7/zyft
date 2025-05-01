@@ -98,9 +98,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
 flutter_native_splash:
-  color: "#0175DC"
+  background_image: assets/images/blue-background.png
   image: assets/images/zyft-logo.png
-  
+
   android_gravity: center
   ios_content_mode: center
 

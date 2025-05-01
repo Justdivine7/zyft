@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:zyft/constants/app_widgets/app_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
- 
-
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -28,15 +27,16 @@ class ProfileScreen extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white, 
-                      width: 2.0, 
-                    ),
+                    border: Border.all(color: Colors.white, width: 2.0),
                   ),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 50,
-                    child: Icon(Icons.person, size: 50, color: Theme.of(context).indicatorColor,),
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                      color: Theme.of(context).indicatorColor,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -71,10 +71,12 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
 
           Expanded(
             child: ListView(
+              // physics: NeverScrollableScrollPhysics(),
+              // shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
                 _buildListTile(Icons.person, 'Edit Profile', context),
@@ -82,20 +84,13 @@ class ProfileScreen extends StatelessWidget {
                 _buildListTile(Icons.payment, 'Payment Methods', context),
                 _buildListTile(Icons.notifications, 'Notifications', context),
                 _buildListTile(Icons.help_outline, 'Help & Support', context),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.logout, color: Colors.white),
-                  label: const Text("Logout"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).indicatorColor,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    textStyle: const TextStyle(fontSize: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+                _buildListTile(Icons.privacy_tip, 'Privacy Policy', context),
+
+                const SizedBox(height: 30),
+                AppButton(
+                  label: 'Logout',
+                  color: Theme.of(context).indicatorColor,
+                  textColor: Colors.white,
                 ),
                 const SizedBox(height: 30),
               ],
