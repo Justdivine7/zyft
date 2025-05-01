@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zyft/constants/app_widgets/app_button.dart';
 // import 'package:zyft/constants/app_widgets/home_app_bar.dart';
-import 'package:zyft/constants/app_widgets/initial_ride_details.dart';
 import 'package:zyft/constants/app_widgets/input_text_field.dart';
 import 'package:zyft/constants/app_widgets/places_suggestions_list.dart';
 import 'package:zyft/view_models/location_view_model.dart';
@@ -50,6 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     // final showChips = ref.watch(showChipsProvider);
 
     return Scaffold(
+      
       // appBar:
       //     showChips
       //         ? AppBar(

@@ -10,7 +10,7 @@ class VerifyPhoneNumberScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(forceMaterialTransparency: true),
+      // appBar: AppBar(forceMaterialTransparency: true),
       body: SafeArea(
         child: Center(
           child: Padding(
