@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zyft/constants/app_widgets/app_button.dart';
 import 'package:zyft/constants/app_widgets/payment_tile.dart';
+import 'package:zyft/constants/functions/functions.dart';
 
-class SelectPaymentMethodSheet extends StatelessWidget {
+class SelectPaymentMethodSheet extends ConsumerWidget {
   final VoidCallback onNext;
 
   const SelectPaymentMethodSheet({super.key, required this.onNext});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
 
     return Padding(
@@ -65,7 +67,7 @@ class SelectPaymentMethodSheet extends StatelessWidget {
                   label: 'Cancel',
                   color: Colors.white,
                   onTap: () {
-                    Navigator.pop(context);
+                    dismissChipsAndModal(context, ref);
                   },
                   textColor: Colors.black,
                   border: Border.all(

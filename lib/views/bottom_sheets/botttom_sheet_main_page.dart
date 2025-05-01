@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:zyft/view_models/location_view_model.dart';
+// import 'package:zyft/constants/app_widgets/home_app_bar.dart';
 import 'package:zyft/views/bottom_sheets/make_payment_sheet.dart';
 import 'package:zyft/views/bottom_sheets/schedule_time_sheet.dart';
 import 'package:zyft/views/bottom_sheets/select_payment_method_sheet.dart';
 import 'package:zyft/views/bottom_sheets/trip_details_sheet.dart';
 import 'package:zyft/views/main_screens/home_screen.dart';
 
-Future<void> showTripDetailsSheet(BuildContext context,) {
- return showModalBottomSheet(
+Future<void> showTripDetailsSheet(BuildContext context) async {
+  await showModalBottomSheet(
     isScrollControlled: true,
+    isDismissible: false,
+    enableDrag: false,
+
     barrierColor: Colors.transparent,
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     context: context,
@@ -29,7 +34,10 @@ Future<void> showTripDetailsSheet(BuildContext context,) {
                         onNext: () {
                           Navigator.pop(context);
                           ref.read(currentStepProvider.notifier).state = 2;
-                          showScheduleTimePlanSheet(context);
+
+                          Future.delayed(Duration.zero, () {
+                            showScheduleTimePlanSheet(context);
+                          });
                         },
                       ),
                 ),
@@ -38,9 +46,28 @@ Future<void> showTripDetailsSheet(BuildContext context,) {
   );
 }
 
-void showScheduleTimePlanSheet(BuildContext context) {
-  showModalBottomSheet(
+// Future<void> showTripDetailsSheet(BuildContext context) async {
+//   await showModalBottomSheet(
+//     context: context,
+//     barrierColor: Colors.transparent,
+//     isScrollControlled: true,
+//     builder: (context) => Container(
+//       height: MediaQuery.of(context).size.height * 0.2,
+//       child: Column(
+//         children: [
+//           HomeAppBar(['1', '2', '3', '4']), // Test with HomeAppBar
+//           Expanded(child: Center(child: Text('Trip Details'))),
+//         ],
+//       ),
+//     ),
+//   );
+// }
+Future<void> showScheduleTimePlanSheet(BuildContext context) async {
+  await showModalBottomSheet(
     context: context,
+    isDismissible: false,
+    enableDrag: false,
+
     isScrollControlled: true,
     barrierColor: Colors.transparent,
 
@@ -61,7 +88,9 @@ void showScheduleTimePlanSheet(BuildContext context) {
                       (context, scrollController) => ScheduleTimeSheet(
                         onNext: () {
                           Navigator.pop(context);
-                          showSelectPaymentSheet(context);
+                          Future.delayed(Duration.zero, () {
+                            showSelectPaymentSheet(context);
+                          });
                           ref.read(currentStepProvider.notifier).state = 3;
                         },
                       ),
@@ -71,9 +100,11 @@ void showScheduleTimePlanSheet(BuildContext context) {
   );
 }
 
-void showSelectPaymentSheet(BuildContext context) {
-  showModalBottomSheet(
+Future<void> showSelectPaymentSheet(BuildContext context) async {
+  await showModalBottomSheet(
     barrierColor: Colors.transparent,
+    isDismissible: false,
+    enableDrag: false,
 
     isScrollControlled: true,
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -94,7 +125,9 @@ void showSelectPaymentSheet(BuildContext context) {
                       (context, scrollController) => SelectPaymentMethodSheet(
                         onNext: () {
                           Navigator.pop(context);
-                          showMakePaymentSheet(context);
+                          Future.delayed(Duration.zero, () {
+                            showMakePaymentSheet(context);
+                          });
                           ref.read(currentStepProvider.notifier).state = 4;
                         },
                       ),
@@ -104,10 +137,12 @@ void showSelectPaymentSheet(BuildContext context) {
   );
 }
 
-void showMakePaymentSheet(BuildContext context) {
-  showModalBottomSheet(
+Future<void> showMakePaymentSheet(BuildContext context) async {
+  await showModalBottomSheet(
     isScrollControlled: true,
     barrierColor: Colors.transparent,
+    isDismissible: false,
+    enableDrag: false,
 
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     shape: RoundedRectangleBorder(

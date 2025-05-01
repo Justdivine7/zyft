@@ -6,8 +6,11 @@ class InputTextField extends ConsumerWidget {
   final void Function()? onTap;
   final void Function(String)? onChanged;
   final String hintText;
-  final Widget prefixIcon;
-  final Widget suffixIcon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final VoidCallback? onEditingComplete;
 
   const InputTextField({
     super.key,
@@ -15,8 +18,11 @@ class InputTextField extends ConsumerWidget {
     this.onTap,
     this.onChanged,
     required this.hintText,
-    required this.prefixIcon,
-    required this.suffixIcon,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.focusNode,
+    this.textInputAction,
+    this.onEditingComplete,
   });
 
   @override
@@ -25,7 +31,10 @@ class InputTextField extends ConsumerWidget {
       elevation: 2,
       child: TextField(
         controller: inputController,
-        // readOnly: true,
+        focusNode: focusNode,
+        textInputAction: textInputAction,
+      onEditingComplete: onEditingComplete,
+
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon,
@@ -41,7 +50,7 @@ class InputTextField extends ConsumerWidget {
             borderSide: BorderSide(color: Colors.grey.shade100),
           ),
         ),
-      
+
         onTap: onTap,
         onChanged: onChanged,
       ),

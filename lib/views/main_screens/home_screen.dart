@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:zyft/constants/app_widgets/app_button.dart';
+// import 'package:zyft/constants/app_widgets/home_app_bar.dart';
 import 'package:zyft/constants/app_widgets/initial_ride_details.dart';
 import 'package:zyft/constants/app_widgets/input_text_field.dart';
+import 'package:zyft/constants/app_widgets/places_suggestions_list.dart';
 import 'package:zyft/view_models/location_view_model.dart';
 import 'package:zyft/view_models/map_controller_view_model.dart';
 import 'package:zyft/views/bottom_sheets/botttom_sheet_main_page.dart';
@@ -23,10 +25,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   static const LatLng _googleOffice = LatLng(37.4223, -122.0848);
   final TextEditingController _pickupController = TextEditingController();
   final TextEditingController _dropoffController = TextEditingController();
+  final FocusNode _pickupFocusNode= FocusNode();
+    final FocusNode _dropoffFocusNode= FocusNode();
+
   bool isSelectingPickup = true;
   bool initialRideDetails = false;
   List<String> tripProgressChips = ['1', '2', '3', '4'];
-  // bool showChips = false;
+
   List<Map<String, String>> _suggestions = [];
 
   @override
@@ -42,19 +47,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     final locationState = ref.watch(locationProvider);
     final mapController = ref.watch(mapControllerProvider.notifier);
-    final currentStep = ref.watch(currentStepProvider);
-    final showChips = ref.watch(showChipsProvider);
+    // final showChips = ref.watch(showChipsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 70,
-        elevation: 2,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: SingleChildScrollView(scrollDirection: Axis.horizontal),
-        // backgroundColor: Colors.white,
-      ),
+      // appBar:
+      //     showChips
+      //         ? AppBar(
+      //           automaticallyImplyLeading: false,
+      //           forceMaterialTransparency: true,
+      //           toolbarHeight: size.height * 0.12,
 
+      //           elevation: 2,
+      //           title: HomeAppBar(tripProgressChips),
+      //         )
+      //         : null,
       body:
           locationState.isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -104,101 +110,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
 
                         Positioned(
-                          top: 10,
-                          left: 0,
-                          right: 0,
-                          child: Visibility(
-                            visible: showChips,
-                            child: Container(
-                              height: size.height * 0.12,
-
-                              decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      print('Back button pressed');
-
-                                      setState(() {
-                                        ref
-                                            .read(showChipsProvider.notifier)
-                                            .state = false;
-                                      });
-                                      Navigator.pop(context);
-                                    },
-
-                                    icon: Icon(Icons.arrow_back),
-                                  ),
-                                  SizedBox(width: size.width * 0.02),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-
-                                      children:
-                                          tripProgressChips.asMap().entries.map(
-                                            (entry) {
-                                              final index = entry.key;
-                                              final progress = entry.value;
-                                              final isCompleted =
-                                                  index < currentStep;
-                                              final isActive =
-                                                  index == currentStep;
-                                              Color backgroundColor =
-                                                  Colors.white;
-                                              Color textColor = Colors.black;
-
-                                              if (isActive) {
-                                                backgroundColor =
-                                                    Theme.of(
-                                                      context,
-                                                    ).primaryColor;
-                                              } else if (isCompleted) {
-                                                backgroundColor = Colors.black;
-                                                textColor = Colors.white;
-                                              } else {
-                                                backgroundColor =
-                                                    Theme.of(
-                                                      context,
-                                                    ).shadowColor;
-                                                textColor = Colors.black;
-                                              }
-                                              return Chip(
-                                                elevation: 2,
-                                                label: Text(
-                                                  progress,
-                                                  style: TextStyle(
-                                                    color: textColor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                                labelPadding:
-                                                    const EdgeInsets.symmetric(
-                                                      vertical: 4,
-                                                      horizontal: 10,
-                                                    ),
-
-                                                backgroundColor:
-                                                    backgroundColor,
-                                              );
-                                            },
-                                          ).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
                           bottom: size.height * 0.005,
                           left: 0,
                           right: 0,
@@ -206,48 +117,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             children: [
                               Visibility(
                                 visible: _suggestions.isEmpty ? false : true,
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 200,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: Colors.white,
-                                  ),
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: _suggestions.length,
-                                    itemBuilder: (context, index) {
-                                      final suggestion = _suggestions[index];
-                                      return ListTile(
-                                        title: Text(suggestion['description']!),
-                                        onTap: () async {
-                                          await ref
-                                              .read(locationProvider.notifier)
-                                              .selectPlace(
-                                                suggestion['placeId']!,
-                                                isSelectingPickup,
-                                                suggestion['description']!,
-                                              );
-                                          if (isSelectingPickup) {
-                                            _pickupController.text =
-                                                suggestion['description']!;
-                                          } else {
-                                            _dropoffController.text =
-                                                suggestion['description']!;
-                                            ref
-                                                .read(locationProvider.notifier)
-                                                .fetchRouteBetweenPickupAndDestination();
-                                          }
-                                          setState(() {
-                                            _suggestions = [];
-                                            _pickupController.clear();
-                                            _dropoffController.clear();
-                                          });
-                                        },
-                                      );
-                                    },
-                                  ),
+                                child: PlacesSuggestionsList(
+                                  _suggestions,
+                                  _pickupController,
+                                  _dropoffController,
+                                  isSelectingPickup,
+                                  () {
+                                    setState(() {
+                                      _suggestions = [];
+                                      _pickupController.clear();
+                                      _dropoffController.clear();
+                                    });
+                                  },
                                 ),
                               ),
                             ],
@@ -271,7 +152,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ),
                           ),
                           InputTextField(
+                            focusNode: _pickupFocusNode,
                             inputController: _pickupController,
+                            textInputAction: TextInputAction.next,
                             onTap: () {
                               setState(() {
                                 isSelectingPickup = true;
@@ -286,7 +169,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 initialRideDetails = true;
                               });
                             },
-                            hintText: 'From',
+                            hintText:
+                                locationState.pickupName != null
+                                    ? locationState.pickupName.toString()
+                                    : 'From',
                             prefixIcon: Image.asset('assets/images/pickup.png'),
                             suffixIcon: Icon(Icons.keyboard_arrow_down_rounded),
                           ),
@@ -294,6 +180,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                           InputTextField(
                             inputController: _dropoffController,
+                            focusNode: _dropoffFocusNode,
+                            textInputAction: TextInputAction.done,
                             onTap: () {
                               setState(() {
                                 isSelectingPickup = false;
@@ -308,13 +196,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 initialRideDetails = true;
                               });
                             },
-                            hintText: 'To',
+                            hintText:  locationState.destinationName != null
+                                    ? locationState.destinationName.toString()
+                                    : 'To',
                             prefixIcon: Image.asset(
                               'assets/images/destination.png',
                             ),
                             suffixIcon: Icon(Icons.keyboard_arrow_down_rounded),
                           ),
-                          if (initialRideDetails) InitialRideDetails(),
+                          // if (initialRideDetails) InitialRideDetails(),
                           SizedBox(height: size.height * 0.01),
                           if (initialRideDetails == true &&
                               locationState.pickupLocation != null &&
@@ -336,10 +226,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   ref.read(currentStepProvider.notifier).state =
                                       1;
 
-                                  showTripDetailsSheet(context);
-
-                                  ref.read(currentStepProvider.notifier).state =
-                                      1;
+                                  await showTripDetailsSheet(context);
                                 },
                               ),
                             ),

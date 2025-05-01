@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zyft/constants/app_widgets/app_button.dart';
 import 'package:zyft/constants/app_widgets/trip_list_tile.dart';
+import 'package:zyft/constants/functions/functions.dart';
+// import 'package:zyft/providers/global_providers.dart';
 import 'package:zyft/view_models/location_view_model.dart';
 
 class MakePaymentSheet extends ConsumerWidget {
@@ -10,6 +12,7 @@ class MakePaymentSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final travelTime = ref.watch(travelTimeProvider())
     final locationState = ref.watch(locationProvider);
     final size = MediaQuery.of(context).size;
     return Padding(
@@ -90,9 +93,11 @@ class MakePaymentSheet extends ConsumerWidget {
             children: [
               Expanded(
                 child: AppButton(
-                  label: 'On spot',
+                  label: 'Cancel',
                   color: Colors.white,
-                  onTap: () {},
+                  onTap: () {
+                    dismissChipsAndModal(context, ref);
+                  },
                   textColor: Colors.black,
                   border: Border.all(
                     color: Theme.of(context).shadowColor,
