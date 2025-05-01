@@ -100,7 +100,7 @@ flutter:
 flutter_native_splash:
   background_image: assets/images/blue-background.png
   image: assets/images/zyft-logo.png
-
+  fill: true
   android_gravity: center
   ios_content_mode: center
 
