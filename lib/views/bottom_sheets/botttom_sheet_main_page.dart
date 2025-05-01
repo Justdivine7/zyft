@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zyft/constants/app_widgets/trip_processed.dart';
 // import 'package:zyft/view_models/location_view_model.dart';
 // import 'package:zyft/constants/app_widgets/home_app_bar.dart';
 import 'package:zyft/views/bottom_sheets/make_payment_sheet.dart';
@@ -161,8 +162,8 @@ Future<void> showMakePaymentSheet(BuildContext context) async {
                   builder:
                       (context, scrollController) => MakePaymentSheet(
                         onNext: () {
-                          Navigator.pop(context);
-                          ref.read(currentStepProvider.notifier).state = 3;
+                          // Navigator.pop(context);
+                          showDriverOnWayDialog(context);
                         },
                       ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zyft/constants/app_widgets/app_button.dart';
 import 'package:zyft/constants/functions/functions.dart';
 
 void showDriverOnWayDialog(BuildContext context) {
@@ -26,13 +27,15 @@ class TripProcessed extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Illustration at top
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                'assets/images/driving-car.png', // your image here
-                width: 120,
-                height: 120,
-                fit: BoxFit.cover,
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage('assets/images/driving-car.png'),
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -42,28 +45,24 @@ class TripProcessed extends ConsumerWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 8),
-            // Subtitle
+
             Text(
               'Your driver is on the way.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 24),
-            // OK button
+
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  // dismissChipsAndModal(context, ref);
+              child: AppButton(
+                label: 'Ok',
+                color: Theme.of(context).indicatorColor,
+                textColor: Colors.white,
+                onTap: () {
+                  Navigator.pop(context);
+                  dismissChipsAndModal(context, ref);
                 },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-                child: const Text('OK', style: TextStyle(fontSize: 16)),
               ),
             ),
           ],

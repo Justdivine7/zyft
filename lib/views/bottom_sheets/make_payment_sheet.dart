@@ -108,7 +108,7 @@ class MakePaymentSheet extends ConsumerWidget {
               SizedBox(width: size.width * 0.15),
               Expanded(
                 child: AppButton(
-                  label: 'Continue',
+                  label: 'Complete',
                   color: Theme.of(context).indicatorColor,
                   onTap: onNext,
                   textColor: Colors.white,

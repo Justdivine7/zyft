@@ -34,10 +34,9 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   child: CircleAvatar(
+                    backgroundColor: Colors.white,
                     radius: 50,
-                    backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D',
-                    ),
+                    child: Icon(Icons.person, size: 50, color: Theme.of(context).indicatorColor,),
                   ),
                 ),
                 const SizedBox(height: 12),

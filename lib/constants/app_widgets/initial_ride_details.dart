@@ -20,22 +20,26 @@ class InitialRideDetails extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // if (locationState.pickupName != null)
-            //   BuildRichText(
-            //     title: 'Pickup:',
-            //     subtitle: locationState.pickupName!.toString(),
-            //   ),
-            // SizedBox(height: 8),
-            // if (locationState.destinationName != null)
-            //   BuildRichText(
-            //     title: 'Drop off:',
-            //     subtitle: locationState.destinationName!.toString(),
-            //   ),
+            if (locationState.pickupName != null)
+              BuildRichText(
+                title: 'Pickup:',
+                subtitle: locationState.pickupName!.toString(),
+              ),
+            SizedBox(height: 8),
+            if (locationState.destinationName != null)
+              BuildRichText(
+                title: 'Drop off:',
+                subtitle: locationState.destinationName!.toString(),
+              ),
 
-            // const SizedBox(height: 8),
+            const SizedBox(height: 8),
             if (locationState.pickupLocation != null &&
                 locationState.dropoffLocation != null)
-             BuildRichText(title: 'Distance:', subtitle: '${ref.read(locationProvider.notifier).calculateDistance(locationState.pickupLocation!, locationState.dropoffLocation!).toStringAsFixed(2)} km')
+              BuildRichText(
+                title: 'Distance:',
+                subtitle:
+                    '${ref.read(locationProvider.notifier).calculateDistance(locationState.pickupLocation!, locationState.dropoffLocation!).toStringAsFixed(2)} km',
+              ),
           ],
         ),
       ),
